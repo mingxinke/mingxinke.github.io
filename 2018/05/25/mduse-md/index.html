@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Markdown语法 | 铭心客的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Markdown语法使用概述宗旨Markdown语法的 目标是实现[易读易写]Markdown 的语法全由一些符号所组成，这些符号经过精挑细选，其作用一目了然。比如：在文字两旁加上星号，看起来就像强调。Markdown 的列表看起来，嗯，就是列表。Markdown 的区块引用看起来就真的像是引用一段文字，就像你曾在电子邮件中见过的那样。 兼容HTMLMarkdown语法的目标是:成为一种适用于网">
+  <meta name="description" content="Markdown语法使用">
 <meta name="keywords" content="Markdown">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Markdown语法">
 <meta property="og:url" content="http://yoursite.com/2018/05/25/mduse-md/index.html">
 <meta property="og:site_name" content="铭心客的博客">
-<meta property="og:description" content="Markdown语法使用概述宗旨Markdown语法的 目标是实现[易读易写]Markdown 的语法全由一些符号所组成，这些符号经过精挑细选，其作用一目了然。比如：在文字两旁加上星号，看起来就像强调。Markdown 的列表看起来，嗯，就是列表。Markdown 的区块引用看起来就真的像是引用一段文字，就像你曾在电子邮件中见过的那样。 兼容HTMLMarkdown语法的目标是:成为一种适用于网">
+<meta property="og:description" content="Markdown语法使用">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-05-25T16:19:43.371Z">
+<meta property="og:updated_time" content="2018-05-25T16:39:09.144Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Markdown语法">
-<meta name="twitter:description" content="Markdown语法使用概述宗旨Markdown语法的 目标是实现[易读易写]Markdown 的语法全由一些符号所组成，这些符号经过精挑细选，其作用一目了然。比如：在文字两旁加上星号，看起来就像强调。Markdown 的列表看起来，嗯，就是列表。Markdown 的区块引用看起来就真的像是引用一段文字，就像你曾在电子邮件中见过的那样。 兼容HTMLMarkdown语法的目标是:成为一种适用于网">
+<meta name="twitter:description" content="Markdown语法使用">
   
     <link rel="alternative" href="/atom.xml" title="铭心客的博客" type="application/atom+xml">
   
@@ -272,6 +272,10 @@
 <p><em>single asterisks</em><br><em>single underscores</em><br><strong>double asterisks</strong><br><strong>double underscores</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">*single asterisks*</span><br><span class="line">_single underscores_</span><br><span class="line">**double asterisks**</span><br><span class="line">__double underscores__</span><br></pre></td></tr></table></figure></p>
 <p>会转成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;em&gt;single asterisks&lt;/em&gt;</span><br><span class="line">&lt;em&gt;single underscores&lt;/em&gt;</span><br><span class="line">&lt;strong&gt;double asterisks&lt;/strong&gt;</span><br><span class="line">&lt;strong&gt;double underscores&lt;/strong&gt;</span><br></pre></td></tr></table></figure></p>
 <p>你可以随便用你喜欢的样式，唯一的限制是，你用什么符号开启标签，就要用什么符号结束。强调也可以直接插在文字中间：<br><code>un*frigging*believable</code><br>但是<strong>如果你的 * 和 _ 两边都有空白的话，它们就只会被当成普通的符号</strong>。<br>如果要在文字前后直接插入普通的星号或底线，你可以用反斜线：<br><code>\*this text is surrounded by literal asterisks\*</code></p>
+<h3 id="删除线"><a href="#删除线" class="headerlink" title="删除线"></a>删除线</h3><p><del>删除线</del> 在文字两边加 双波浪号<br><code>~~删除线~~</code>    </p>
+<h4 id="下划线"><a href="#下划线" class="headerlink" title="下划线"></a>下划线</h4><p>在空白行下方添加三条“-”横线。</p>
+<hr>
+<h3 id="强制换行"><a href="#强制换行" class="headerlink" title="强制换行"></a>强制换行</h3><p>在行尾输入两个空格<br>这个就是另一行</p>
 <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>如果要标记一小段行内代码，你可以用反引号把它包起来（`），例如：Use the <code>printf()</code> function.<br><code>Use the `printf()` function.</code><br>这段语法会产生：<br><code>&lt;p&gt;&lt;code&gt;There is a literal backtick (`) here.&lt;/code&gt;&lt;/p&gt;</code><br>多行代码可以使用三个 `</p>
 <h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><p>很明显地，要在纯文字应用中设计一个「自然」的语法来插入图片是有一定难度的。<br>Markdown 使用一种和链接很相似的语法来标记图片，同样也允许两种样式： 行内式和参考式。<br>行内式的图片语法看起来像是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">![Alt text](/path/to/img.jpg)</span><br><span class="line"></span><br><span class="line">![Alt text](/path/to/img.jpg &quot;Optional title&quot;)</span><br></pre></td></tr></table></figure></p>
 <p>详细叙述如下：</p>
@@ -280,8 +284,31 @@
 <li>接着一个方括号，里面放上图片的替代文字</li>
 <li>接着一个普通括号，里面放上图片的网址，最后还可以用引号包住并加上 选择性的 ‘title’ 文字。</li>
 </ul>
-<p>参考式的图片语法则长得像这样：<br><code>![Alt text][id]</code><br>「id」是图片参考的名称，图片参考的定义方式则和连结参考一样：<br><code>[id]: url/to/image  &quot;Optional title attribute&quot;</code>    </p>
-<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><h3 id="自动链接"><a href="#自动链接" class="headerlink" title="自动链接"></a>自动链接</h3><p>Markdown 支持以比较简短的自动链接形式来处理网址和电子邮件信箱，只要是用尖括号包起来， Markdown 就会自动把它转成链接。一般网址的链接文字就和链接地址一样，例如：<br><code>&lt;http://example.com/&gt;</code><br>Markdown会转成：<br><code>&lt;a href=&quot;http://example.com/&quot;&gt;http://example.com/&lt;/a&gt;</code><br>邮址的自动链接也很类似，只是 Markdown 会先做一个编码转换的过程，把文字字符转成 16 进位码的 HTML 实体，这样的格式可以糊弄一些不好的邮址收集机器人，例如：<a href="mailto:&#x6d;&#105;&#x6e;&#103;&#x78;&#x69;&#x6e;&#107;&#x65;&#x40;&#x68;&#111;&#x74;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;" target="_blank" rel="noopener">&#x6d;&#105;&#x6e;&#103;&#x78;&#x69;&#x6e;&#107;&#x65;&#x40;&#x68;&#111;&#x74;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a><br><code>&lt;mingxinke@hotmail.com&gt;</code><br>Markdown会转成：<br><code>&lt;a href=&quot;mailto:address@example.com&quot;&gt;address@example.com&lt;/a&gt;</code>     </p>
+<p>参考式的图片语法则长得像这样：<br><code>![Alt text][id]</code><br>「id」是图片参考的名称，图片参考的定义方式则和连结参考一样：<br><code>[id]: url/to/image  &quot;Optional title attribute&quot;</code>   </p>
+<h3 id="视频"><a href="#视频" class="headerlink" title="视频"></a>视频</h3><p>%<a href="http://markdown.xiaoshujiang.com/media/movie.ogg" target="_blank" rel="noopener">电影</a></p>
+<h3 id="音频"><a href="#音频" class="headerlink" title="音频"></a>音频</h3><p>~<a href="http://markdown.xiaoshujiang.com/media/horse.ogg" target="_blank" rel="noopener">音乐</a></p>
+<h3 id="附件"><a href="#附件" class="headerlink" title="附件"></a>附件</h3><p>=<a href="./jianzhu.jpg">附件</a></p>
+<h3 id="流程图-语法"><a href="#流程图-语法" class="headerlink" title="流程图 (语法)"></a>流程图 (<a href="http://adrai.github.io/flowchart.js/" target="_blank" rel="noopener">语法</a>)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: 开始</span><br><span class="line">e=&gt;end: 结束</span><br><span class="line">op=&gt;operation: 操作步骤</span><br><span class="line">cond=&gt;condition: 是 或者 否?</span><br><span class="line"></span><br><span class="line">st-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;e</span><br><span class="line">cond(no)-&gt;op</span><br></pre></td></tr></table></figure>
+<h3 id="序列图-语法"><a href="#序列图-语法" class="headerlink" title="序列图 (语法)"></a>序列图 (<a href="https://github.com/bramp/js-sequence-diagrams/blob/master/src/grammar.jison" target="_blank" rel="noopener">语法</a>)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">小明-&gt;小李: 你好 小李, 最近怎么样?</span><br><span class="line">Note right of 小李: 小李想了想</span><br><span class="line">小李--&gt;小明: 还是老样子</span><br></pre></td></tr></table></figure>
+<h3 id="脚注-1x"><a href="#脚注-1x" class="headerlink" title="脚注^1x"></a>脚注<a href="脚注的用法">^1x</a></h3><h3 id="表格Tables"><a href="#表格Tables" class="headerlink" title="表格Tables"></a>表格Tables</h3><table>
+<thead>
+<tr>
+<th>First Header</th>
+<th>Second Header</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content Cell</td>
+<td>Content Cell</td>
+</tr>
+<tr>
+<td>Content Cell</td>
+<td>Content Cell</td>
+</tr>
+</tbody>
+</table>
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><h3 id="自动链接"><a href="#自动链接" class="headerlink" title="自动链接"></a>自动链接</h3><p>Markdown 支持以比较简短的自动链接形式来处理网址和电子邮件信箱，只要是用尖括号包起来， Markdown 就会自动把它转成链接。一般网址的链接文字就和链接地址一样，例如：<br><code>&lt;http://example.com/&gt;</code><br>Markdown会转成：<br><code>&lt;a href=&quot;http://example.com/&quot;&gt;http://example.com/&lt;/a&gt;</code><br>邮址的自动链接也很类似，只是 Markdown 会先做一个编码转换的过程，把文字字符转成 16 进位码的 HTML 实体，这样的格式可以糊弄一些不好的邮址收集机器人，例如：<a href="mailto:&#x6d;&#x69;&#110;&#x67;&#120;&#x69;&#110;&#107;&#x65;&#x40;&#x68;&#x6f;&#x74;&#109;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;" target="_blank" rel="noopener">&#x6d;&#x69;&#110;&#x67;&#120;&#x69;&#110;&#107;&#x65;&#x40;&#x68;&#x6f;&#x74;&#109;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;</a><br><code>&lt;mingxinke@hotmail.com&gt;</code><br>Markdown会转成：<br><code>&lt;a href=&quot;mailto:address@example.com&quot;&gt;address@example.com&lt;/a&gt;</code>     </p>
 <h3 id="反斜杠"><a href="#反斜杠" class="headerlink" title="反斜杠"></a>反斜杠</h3><p>Markdown 可以利用反斜杠来插入一些在语法中有其它意义的符号，例如：如果你想要用星号加在文字旁边的方式来做出强调效果（但不用 <code>&lt;em&gt;</code> 标签），你可以在星号的前面加上反斜杠：<br><code>\*literal asterisks\*</code><br>Markdown 支持以下这些符号前面加上反斜杠来帮助插入普通的符号：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">\   反斜线</span><br><span class="line">`   反引号</span><br><span class="line">*   星号</span><br><span class="line">_   底线</span><br><span class="line">&#123;&#125;  花括号</span><br><span class="line">[]  方括号</span><br><span class="line">()  括弧</span><br><span class="line">#   井字号</span><br><span class="line">+   加号</span><br><span class="line">-   减号</span><br><span class="line">.   英文句点</span><br><span class="line">!   惊叹号</span><br></pre></td></tr></table></figure></p>
 <p>转自<a href="http://wowubuntu.com/markdown/" target="_blank" rel="noopener">http://wowubuntu.com/markdown/</a></p>
 
