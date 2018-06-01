@@ -11,20 +11,20 @@
     
 
     
-    <meta name="description" content="Qt的QPushButton控件设置图标时，图标默认在内容的前方">
+    <meta name="description" content="设置按钮的布局方向从右到左，这时图标的位置就在文本的后面了。代码如下：">
 <meta name="keywords" content="Qt,QPushButton,图标">
 <meta property="og:type" content="article">
 <meta property="og:title" content="设置QPushButton的图标在文本的后面">
 <meta property="og:url" content="http://yoursite.com/2018/05/23/my-first-blog/index.html">
 <meta property="og:site_name" content="铭心客的博客">
-<meta property="og:description" content="Qt的QPushButton控件设置图标时，图标默认在内容的前方">
+<meta property="og:description" content="设置按钮的布局方向从右到左，这时图标的位置就在文本的后面了。代码如下：">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://i.loli.net/2018/05/29/5b0d1fcf2a65f.jpg">
 <meta property="og:image" content="https://i.loli.net/2018/05/29/5b0d2021f1f9a.jpg">
-<meta property="og:updated_time" content="2018-05-29T10:02:33.533Z">
+<meta property="og:updated_time" content="2018-05-29T11:34:01.852Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设置QPushButton的图标在文本的后面">
-<meta name="twitter:description" content="Qt的QPushButton控件设置图标时，图标默认在内容的前方">
+<meta name="twitter:description" content="设置按钮的布局方向从右到左，这时图标的位置就在文本的后面了。代码如下：">
 <meta name="twitter:image" content="https://i.loli.net/2018/05/29/5b0d1fcf2a65f.jpg">
 
     
@@ -107,8 +107,7 @@
 		
 		</div>
 		
-		<a id="more"></a>
-<p><strong>设置按钮的布局方向从右到左，这时图标的位置就在文本的后面了。代码如下：</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置布局的方向从右到左</span></span><br><span class="line">m_pBtnUser-&gt;setLayoutDirection(Qt::RightToLeft);</span><br></pre></td></tr></table></figure></p>
+		<p><strong>设置按钮的布局方向从右到左，这时图标的位置就在文本的后面了。代码如下：</strong><br><a id="more"></a><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置布局的方向从右到左</span></span><br><span class="line">m_pBtnUser-&gt;setLayoutDirection(Qt::RightToLeft);</span><br></pre></td></tr></table></figure></p>
 <p>效果如下：<br><img src="https://i.loli.net/2018/05/29/5b0d1fcf2a65f.jpg" alt="1526882956604_1"></p>
 <p><strong>但是由于我们使用了菜单所以菜单图标位置也错了，下面使用css样式表设置菜单图标位置：</strong><br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">QPushButton</span><span class="selector-id">#btnUser</span><span class="selector-pseudo">::menu-indicator</span> &#123;</span><br><span class="line">    <span class="attribute">subcontrol-position</span>: left center;</span><br><span class="line">    <span class="attribute">subcontrol-origin</span>: padding;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">2px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>最终效果：<br><img src="https://i.loli.net/2018/05/29/5b0d2021f1f9a.jpg" alt="1526882632131"></p>
@@ -204,7 +203,11 @@
 		  
 		
 		  
-			<li><a href="/categories/Qt/" title="Qt">Qt<sup>1</sup></a></li>
+			<li><a href="/categories/QT/" title="QT">QT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Qt/" title="Qt">Qt<sup>2</sup></a></li>
 		  
 		
 		</ul>
@@ -217,7 +220,15 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/Qt/" title="Qt">Qt<sup>1</sup></a></li>
+				<li><a href="/tags/Qt/" title="Qt">Qt<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Markdown/" title="Markdown">Markdown<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/屏幕截图/" title="屏幕截图">屏幕截图<sup>1</sup></a></li>
 			
 		
 			
@@ -229,7 +240,11 @@
 			
 		
 			
-				<li><a href="/tags/Markdown/" title="Markdown">Markdown<sup>1</sup></a></li>
+				<li><a href="/tags/QT/" title="QT">QT<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/系统托盘/" title="系统托盘">系统托盘<sup>1</sup></a></li>
 			
 		
 		</ul>

@@ -1,0 +1,1032 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>QT实现屏幕截图 | 铭心客的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="铭心客">
+    
+
+    
+    <meta name="description" content="屏幕截图是非常常用的功能，但是一直没有自己写过，现在使用QT实现非常简单的全屏截图。屏幕截图主要使用了QGuiApplication类、QScreen类。QGuiApplication类管理GUI应用程序的控制流和主设置。">
+<meta name="keywords" content="Qt,屏幕截图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="QT实现屏幕截图">
+<meta property="og:url" content="http://yoursite.com/2018/05/29/screenshort/index.html">
+<meta property="og:site_name" content="铭心客的博客">
+<meta property="og:description" content="屏幕截图是非常常用的功能，但是一直没有自己写过，现在使用QT实现非常简单的全屏截图。屏幕截图主要使用了QGuiApplication类、QScreen类。QGuiApplication类管理GUI应用程序的控制流和主设置。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.loli.net/2018/05/30/5b0ea53565586.png">
+<meta property="og:updated_time" content="2018-06-01T14:26:10.293Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="QT实现屏幕截图">
+<meta name="twitter:description" content="屏幕截图是非常常用的功能，但是一直没有自己写过，现在使用QT实现非常简单的全屏截图。屏幕截图主要使用了QGuiApplication类、QScreen类。QGuiApplication类管理GUI应用程序的控制流和主设置。">
+<meta name="twitter:image" content="https://i.loli.net/2018/05/30/5b0ea53565586.png">
+
+    
+    <link rel="alternative" href="/atom.xml" title="铭心客的博客" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="铭心客的博客" title="铭心客的博客"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="铭心客的博客">铭心客的博客</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/tags">tags</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2018/05/29/screenshort/" title="QT实现屏幕截图" itemprop="url">QT实现屏幕截图</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="铭心客" target="_blank" itemprop="author">铭心客</a>
+		
+  <p class="article-time">
+    <time datetime="2018-05-29T15:37:14.000Z" itemprop="datePublished"> 发表于 2018-05-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#功能实现"><span class="toc-number">1.</span> <span class="toc-text">功能实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#QGuiApplication类"><span class="toc-number">2.</span> <span class="toc-text">QGuiApplication类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#公有函数"><span class="toc-number">2.1.</span> <span class="toc-text">公有函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#静态公有函数"><span class="toc-number">2.2.</span> <span class="toc-text">静态公有函数</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#QScreen类"><span class="toc-number">2.2.1.</span> <span class="toc-text">QScreen类</span></a></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<p>屏幕截图是非常常用的功能，但是一直没有自己写过，现在使用QT实现非常简单的全屏截图。<br>屏幕截图主要使用了QGuiApplication类、QScreen类。<br>QGuiApplication类管理GUI应用程序的控制流和主设置。  </p>
+<a id="more"></a>
+<h4 id="功能实现"><a href="#功能实现" class="headerlink" title="功能实现"></a>功能实现</h4><p>代码很简单，只有一个函数，具体代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 界面截图</span></span><br><span class="line"><span class="keyword">void</span> MainWindow::widgetScreenshot()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 获取屏幕类</span></span><br><span class="line">    QScreen *pScreen = QGuiApplication::primaryScreen();</span><br><span class="line">    <span class="comment">// 获取第一个屏幕的图片</span></span><br><span class="line">    QPixmap mPixmap = pScreen-&gt;grabWindow(<span class="number">0</span>);</span><br><span class="line">    <span class="comment">// 获取系统图片目录</span></span><br><span class="line">    QString savePath = QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);</span><br><span class="line">    <span class="comment">// 设置名称为当前时间</span></span><br><span class="line">    savePath = QString( <span class="string">"%1/%2.png"</span>).arg(savePath).arg(QDateTime::currentDateTime().toString(<span class="string">"yyyyMMddHHmmss"</span>));</span><br><span class="line">    <span class="comment">// 保存图片</span></span><br><span class="line">    qDebug() &lt;&lt; <span class="string">"savePath"</span> &lt;&lt; savePath;</span><br><span class="line">    mPixmap.save(savePath);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>截图放在了系统图片目录：<br><img src="https://i.loli.net/2018/05/30/5b0ea53565586.png" alt="screenshort"></p>
+<p>下面详细介绍 <strong>QGuiApplication</strong> 类和 <strong>QScreen</strong>类。  </p>
+<h4 id="QGuiApplication类"><a href="#QGuiApplication类" class="headerlink" title="QGuiApplication类"></a>QGuiApplication类</h4><blockquote>
+<p>QGuiApplication类管理GUI应用程序的控制流和主设置。<br>QGuiApplication包含主事件循环，其中所有来自窗口系统和其他源的事件都被处理和发送。它还处理应用程序的初始化和终结，并提供会话管理。此外，QGuiApplication处理大多数系统范围和应用程序范围的设置。<br>对于使用Qt的任何GUI应用程序，无论应用程序在任何给定时间是否有0、1、2或更多窗口，都有一个QGuiApplication对象。对于非GUI Qt应用程序，使用QCoreApplication，因为它不依赖于Qt GUI模块。对于基于Qt的Qt应用程序，使用QApplication代替，因为它提供了创建QWidget实例所需的一些功能。<br>通过实例()函数访问QGuiApplication对象，该函数返回相当于全局qApp指针的指针。<br>QGuiApplication的主要职责范围是:</p>
+<ul>
+<li>它使用用户的桌面设置来初始化应用程序，例如palette()、font()和styleHints()。它跟踪这些属性，以防止用户在全局环境中更改桌面，例如通过某种控制面板。</li>
+<li>它执行事件处理，这意味着它从底层窗口系统接收事件并将它们分派给相关的小部件。您可以使用sendEvent()和postEvent()将您自己的事件发送到windows。<br>它解析常见的命令行参数，并相应地设置其内部状态。</li>
+<li>它提供了通过 translate()对用户可见的字符串的本地化。</li>
+<li>它提供了一些像 clipboard()这样的神奇的对象。</li>
+<li>它知道应用程序的窗口。您可以使用topLevelAt()来询问哪个窗口位于某个位置，然后获取一个topLevelWindows()列表，等等。</li>
+<li>它管理应用程序的鼠标光标处理，见setOverrideCursor()</li>
+<li>它为复杂的会话管理提供支持。这使得应用程序可以在用户注销时优雅地终止，如果不可能终止关闭过程，甚至在将来的会话中保存整个应用程序的状态。查看issession恢复()、sessionId()和commitDataRequest()和saveStateRequest()以获取详细信息。<br>由于QGuiApplication对象执行了这么多的初始化，所以必须在创建与用户界面相关的其他对象之前创建它。QGuiApplication还处理常见的命令行参数。因此，在对argv的任何解释或修改之前创建它通常是一个好主意。</li>
+</ul>
+</blockquote>
+<h5 id="公有函数"><a href="#公有函数" class="headerlink" title="公有函数"></a>公有函数</h5><blockquote>
+<ol>
+<li>qreal QGuiApplication::devicePixelRatio() const  </li>
+</ol>
+</blockquote>
+<p>返回系统中发现的最高屏幕设备像素比率。这是物理像素和设备独立像素之间的比率。只有你不知道你的目标窗口时，才使用此函数。如果知道目标窗口，则使用QWindow::devicePixelRatio()。  </p>
+<blockquote>
+<ol start="2">
+<li>bool QGuiApplication::isSavingSession() const</li>
+</ol>
+</blockquote>
+<p>如果应用程序当前保存会话，则返回true；否则返回false。当commitDataRequest()和saveStateRequest()被释放时，这是正确的，但是当窗口随后被会话管理关闭时也是如此。  </p>
+<blockquote>
+<ol start="3">
+<li>bool QGuiApplication::isSessionRestored() const</li>
+</ol>
+</blockquote>
+<p>如果应用程序已从较早的会话恢复，则返回true;否则返回false。</p>
+<blockquote>
+<ol start="4">
+<li>QString QGuiApplication::sessionId() const</li>
+</ol>
+</blockquote>
+<p>返回当前会话的标识。如果这个应用程序从较早的会话恢复，此标识与前一会话中的标识符相同。对于不同应用程序和同一应用程序的不同实例，会话标识符都是唯一的。</p>
+<blockquote>
+<ol start="5">
+<li>QString QGuiApplication::sessionKey() const</li>
+</ol>
+</blockquote>
+<p>在当前会话中返回密钥。如果应用程序从较早的会话中恢复，此键与前一会话结束时相同。每次保存会话时，会话密钥都会发生改变。如果关闭过程被取消，则在再次关闭会话时将使用另一会话密钥。</p>
+<h5 id="静态公有函数"><a href="#静态公有函数" class="headerlink" title="静态公有函数"></a>静态公有函数</h5><blockquote>
+<ol>
+<li>QWindowList QGuiApplication::allWindows()</li>
+</ol>
+</blockquote>
+<p>返回应用程序中所有的窗口列表，如果程序没有窗口，列表为空。</p>
+<blockquote>
+<ol start="2">
+<li>applicationDisplayName : QString<blockquote>
+<p>QString applicationDisplayName()<br>void setApplicationDisplayName(const QString &amp;name)</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<p>此属性保存该应用程序的用户可见名称。如果没有设置，应用程序显示名称默认为应用程序名称。</p>
+<blockquote>
+<ol start="3">
+<li>Qt::ApplicationState QGuiApplication::applicationState()</li>
+</ol>
+</blockquote>
+<p>返回应用程序的当前状态。您可以对应用程序状态更改做出响应，以执行诸如停止/恢复cpu密集型任务、释放/加载资源或保存/恢复应用程序数据等操作。<br>状态如下：<br>应用状态                  | 值         | 说明<br>———————— | ———- | ——-<br>Qt::ApplicationSuspended | 0x00000000 | 应用程序即将暂停。当进入这个状态时，应用程序应该保存它的状态，停止所有的活动，并准备好让代码执行停止。暂停时，应用程序可以在没有进一步警告的情况下随时被杀死(例如，当低内存迫使操作系统清除暂停的应用程序时)。<br>Qt::ApplicationHidden    | 0x00000001 | 应用程序隐藏并在后台运行。这是需要进行后台处理的应用程序的正常状态，比如播放音乐，而用户与其他应用程序交互。在进入这个状态时，应用程序应该释放所有图形资源。<br>Qt::ApplicationInactive  | 0x00000002 | 应用程序是可见的，但没有选择在前面。在桌面平台上，这通常意味着用户激活了另一个应用程序。在移动平台上，当操作系统用输入的呼叫或短信来打断用户时，进入这个状态更为常见。在这种状态下，考虑减少cpu密集型任务。<br>Qt::ApplicationActive    | 0x00000003 | 应用程序是可见的，并且被显示在前面。</p>
+<blockquote>
+<ol start="4">
+<li>void QGuiApplication::changeOverrideCursor(const QCursor &amp;cursor)</li>
+</ol>
+</blockquote>
+<p>更改当前活动的应用程序覆盖当前的光标。<strong>注意：如果没有调用setOverrideCursor()，则该函数没有效果。</strong></p>
+<blockquote>
+<ol start="5">
+<li>QClipboard *QGuiApplication::clipboard()</li>
+</ol>
+</blockquote>
+<p>返回剪切板的交互对象</p>
+<blockquote>
+<ol start="6">
+<li>desktopFileName : QString<blockquote>
+<p>QString desktopFileName()<br>void setDesktopFileName(const QString &amp;name)</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<p>此属性保存此应用程序的桌面条目的基本名称。<br>这是一个文件名称，没有完整的路径，它是根据freedesktop desktop entry规范来表示这个应用程序的桌面条目。</p>
+<blockquote>
+<ol start="7">
+<li>bool QGuiApplication::desktopSettingsAware()</li>
+</ol>
+</blockquote>
+<p>如果Qt设置为使用系统的标准颜色、字体等，则返回true;否则返回false。默认是正确的。</p>
+<blockquote>
+<ol start="8">
+<li>int QGuiApplication::exec()</li>
+</ol>
+</blockquote>
+<p>进入主事件循环并等待直到exit()被调用，然后返回被设置为exit()的值(如果exit()调用exit()，则为0)。<br>需要调用此函数来启动事件处理。主事件循环从窗口系统接收事件，并将这些事件分派给应用程序小部件。<br>通常，在调用exec()之前不会发生用户交互。<br>为了使您的应用程序执行空闲处理，例如，在没有挂起事件的情况下执行一个特殊的函数，使用一个带有0超时的QTimer。可以使用processEvents()实现更高级的空闲处理方案。<br>我们建议您将清理代码连接到aboutToQuit()信号，而不是将其放入应用程序的main()函数中。这是因为，在某些平台上，QApplication::exec()调用可能不会返回。</p>
+<blockquote>
+<ol start="9">
+<li>QObject *QGuiApplication::focusObject()</li>
+</ol>
+</blockquote>
+<p>返回当前活动窗口中的QObject，该窗口将是与焦点相关的事件的最终接收方，例如关键事件。</p>
+<blockquote>
+<ol start="10">
+<li>QWindow *QGuiApplication::focusWindow()</li>
+</ol>
+</blockquote>
+<p>返回接收与焦点相关的事件的QWindow，例如关键事件。</p>
+<blockquote>
+<ol start="11">
+<li>QFont QGuiApplication::font()</li>
+</ol>
+</blockquote>
+<p>返回应用程序默认的字体</p>
+<blockquote>
+<ol start="12">
+<li>QInputMethod *QGuiApplication::inputMethod()</li>
+</ol>
+</blockquote>
+<p>返回输入的方法。输入方法返回有关虚拟键盘的状态和位置的属性。它还提供关于当前焦点输入元素位置的信息。</p>
+<blockquote>
+<ol start="13">
+<li>bool QGuiApplication::isFallbackSessionManagementEnabled()</li>
+</ol>
+</blockquote>
+<p>返回QGuiApplication是否将使用回退会话管理。<br>默认是正确的。如果这是真的，会话管理器允许用户交互，QGuiApplication将尝试在提交任务()后关闭顶层窗口。如果窗口不能关闭，会话关闭将被取消，应用程序将继续运行。</p>
+<blockquote>
+<ol start="14">
+<li>Qt::KeyboardModifiers QGuiApplication::keyboardModifiers()</li>
+</ol>
+</blockquote>
+<p>返回键盘上修饰符键的当前状态。当事件队列清空后，将自动更改键盘状态(QEvent::KeyPress和QEvent::KeyRelease事件)，当前状态被同步更新。<br>应该注意的是，这可能并没有反映在调用时在输入设备上所持有的实际的键，而是在上述事件中最后一次报告的修饰符。如果没有密钥，Qt::NoModifier返回。</p>
+<blockquote>
+<ol start="15">
+<li>QWindow *QGuiApplication::modalWindow()</li>
+</ol>
+</blockquote>
+<p>返回最近显示的模式窗口。如果没有显示模式窗口，则该函数返回零。<br>模式窗口是一个窗口，它的modality属性设置为Qt::WindowModal或Qt::ApplicationModal。在用户可以继续使用程序的其他部分之前，必须关闭一个模式窗口。模式窗口是在堆栈中组织的。这个函数将返回堆栈顶部的模式窗口。</p>
+<blockquote>
+<ol start="16">
+<li>Qt::MouseButtons QGuiApplication::mouseButtons()</li>
+</ol>
+</blockquote>
+<p>返回鼠标上的按钮的当前状态。当前状态是同步更新的，因为事件队列清空了会自动改变鼠标状态的事件(QEvent: MouseButtonPress和QEvent::MouseButtonRelease事件)。</p>
+<blockquote>
+<ol start="17">
+<li>QCursor *QGuiApplication::overrideCursor()</li>
+</ol>
+</blockquote>
+<p>返回活动的应用程序覆盖光标。<br>如果没有定义应用程序光标，则该函数返回0。</p>
+<blockquote>
+<ol start="18">
+<li>QPalette QGuiApplication::palette()</li>
+</ol>
+</blockquote>
+<p>返回默认的应用程序调色板。</p>
+<blockquote>
+<ol start="19">
+<li>QFunctionPointer QGuiApplication::platformFunction(const QByteArray &amp;function)</li>
+</ol>
+</blockquote>
+<p>从平台插件匹配函数返回一个函数指针。</p>
+<blockquote>
+<ol start="20">
+<li>platformName : const QString<blockquote>
+<p>QString platformName()</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<p>此属性包含底层平台插件的名称。QPA平台插件位于qtbase\src\plugins\platform中。支持如下平台：</p>
+<ul>
+<li>android   </li>
+<li>cocoa（macOS）</li>
+<li>directfb</li>
+<li>eglfs（平台插件，它在EGL和OpenGL ES 2.0之上运行Qt5应用程序，而没有实际的窗口系统）</li>
+<li>ios （也可以被使用tvOS）</li>
+<li>kms（一个使用内核modesetting和DRM(直接呈现管理器)的实验性平台插件）</li>
+<li>linuxfb</li>
+<li>minimal （最小化是一个例子，可以使用该插件在没有GUI的环境中运行GUI应用程序）</li>
+<li>minimalegl（插件例子）</li>
+<li>offscreen</li>
+<li>openwwfd</li>
+<li>qnx</li>
+<li>windows</li>
+<li>xcb（普通桌面Linux平台上使用的X11插件）</li>
+</ul>
+<blockquote>
+<ol start="21">
+<li>QPlatformNativeInterface *QGuiApplication::platformNativeInterface()</li>
+</ol>
+</blockquote>
+<p>返回平台的本机接口，用于平台特定功能。</p>
+<blockquote>
+<ol start="22">
+<li>QScreen * const<blockquote>
+<p>QScreen <em> primaryScreen()<br>信号：<br>void primaryScreenChanged(QScreen </em>screen)</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<p>此属性保存应用程序的主(或默认)屏幕。<br>这将是最初显示QWindows的屏幕，除非另有说明。</p>
+<blockquote>
+<ol start="23">
+<li>Qt::KeyboardModifiers QGuiApplication::queryKeyboardModifiers()</li>
+</ol>
+</blockquote>
+<p>查询并返回键盘上修饰符键的状态。与keyboardmodifier不同，该方法返回在调用该方法时保存在输入设备上的实际密钥。它不依赖于此进程接收到的按键事件，这使得在移动窗口时检查修饰符成为可能。<br><strong>注意，在大多数情况下，您应该使用keyboardModifiers()，因为它包含了修饰符的状态，因为它包含了当前处理的事件时的状态。</strong></p>
+<blockquote>
+<ol start="24">
+<li>QList<qscreen *=""> screens()</qscreen></li>
+</ol>
+</blockquote>
+<p>返回与应用程序连接的窗口系统相关的所有屏幕的列表。</p>
+<h6 id="QScreen类"><a href="#QScreen类" class="headerlink" title="QScreen类"></a>QScreen类</h6><blockquote>
+<ol>
+<li>int QScreen::angleBetween(Qt::ScreenOrientation a, Qt::ScreenOrientation b) const</li>
+</ol>
+</blockquote>
+<p>方便函数计算旋转角度，从旋转a到旋转b。<br>Qt::ScreenOrientation枚举类型指定屏幕可能具有的各种方向，具体如下：<br>类型                      | 值         | 说明<br>———————— | ———- |——<br>Qt::PrimaryOrientation   | 0x00000000 | 显示的主要取向。<br>Qt::LandscapeOrientation | 0x00000002 | 景观朝向，显示宽度大于显示高度。<br>Qt::PortraitOrientation  | 0x00000001 | 人像定位，显示高度大于显示宽度，相对于景观顺时针旋转90度。<br>Qt::InvertedLandscapeOrientation | 0x00000008 | 倒转的景观朝向，相对于景观旋转180度。<br>Qt::InvertedPortraitOrientation  | 0x00000004 | 倒置的人像方向，旋转180度相对于人像。</p>
+<blockquote>
+<ol start="2">
+<li>availableGeometry : const QRect<blockquote>
+<p>QRect  availableGeometry() const<br>信号：<br>void availableGeometryChanged(const QRect &amp;geometry)</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<p>此属性以像素为单位保存屏幕可用的几何图形。<br>可用的几何图形是不包括窗口管理器保留区域的几何图形，如任务栏和系统菜单。</p>
+<blockquote>
+<ol start="3">
+<li>availableSize : const QSize<blockquote>
+<p>QSize availableSize() const<br>信号：<br>void availableGeometryChanged(const QRect &amp;geometry)</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<p>此属性以像素为单位保存屏幕的可用大小。<br>可用的大小是不包括窗口管理器预留区域(如任务栏和系统菜单)的大小。</p>
+<blockquote>
+<ol start="4">
+<li>availableVirtualGeometry : const QRect<blockquote>
+<p>QRect availableVirtualGeometry() const<br>信号：<br>void virtualGeometryChanged(const QRect &amp;rect)</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<p>此属性保存该屏幕所属的虚拟桌面的可用几何图形。<br>返回与此屏幕对应的虚拟桌面的可用几何图形。<br>这是虚拟兄弟姐妹的单个可用几何图形的联合。</p>
+<blockquote>
+<ol start="5">
+<li>availableVirtualSize : const QSize<blockquote>
+<p>QSize availableVirtualSize() const<br>信号：<br>void virtualGeometryChanged(const QRect &amp;rect)</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<p>此属性保存该屏幕所属的虚拟桌面的可用大小。<br>返回与此屏幕对应的虚拟桌面的可用像素大小。<br>这是虚拟兄弟的单个可用几何图形的组合大小。</p>
+<blockquote>
+<ol start="6">
+<li>depth : const int<blockquote>
+<p>int depth() const</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<p>此属性保存屏幕的颜色深度</p>
+<blockquote>
+<ol start="7">
+<li>devicePixelRatio : const qreal<blockquote>
+<p>qreal devicePixelRatio() const<br>信号：<br>void physicalDotsPerInchChanged(qreal dpi)</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<p>此属性保存物理像素和与设备无关的像素之间的屏幕比值。<br>返回屏幕的物理像素与设备独立像素之间的比率。<br>普通的数值是1.0在正常显示和2.0在“视网膜”显示。更高的值也是可能的。</p>
+<blockquote>
+<ol start="8">
+<li>geometry : const QRect<blockquote>
+<p>QRect geometry() const<br>信号：<br>void geometryChanged(const QRect &amp;geometry)</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<p>此属性以像素为单位保存屏幕的几何图形。 </p>
+<blockquote>
+<ol start="9">
+<li>QPixmap QScreen::grabWindow(WId window, int x = 0, int y = 0, int width = -1, int height = -1)</li>
+</ol>
+</blockquote>
+<p>创建并返回一个由QRect(x, y, width, height)限制的给定窗口内容所构建的像素图。<br>参数(x, y)指定窗口中的偏移量，而(宽度、高度)指定要复制的区域。如果宽度为负，函数将所有内容复制到窗口的右边框。如果高度为负，则函数将所有内容复制到窗口的底部。<br>可以使用QWidget: winId()函数检索窗口系统标识符。使用窗口标识符而不是QWidget的基本原理是启用不属于应用程序、窗口系统框架等的窗口。</p>
+<blockquote>
+<ol start="10">
+<li>QPlatformScreen *QScreen::handle() const</li>
+</ol>
+</blockquote>
+<p>获取平台屏幕手柄</p>
+<blockquote>
+<ol start="11">
+<li>bool QScreen::isLandscape(Qt::ScreenOrientation o) const</li>
+</ol>
+</blockquote>
+<p>如果o是横景或倒景，则返回真值的便利函数;否则返回false。</p>
+<blockquote>
+<ol start="12">
+<li>bool QScreen::isPortrait(Qt::ScreenOrientation o) const </li>
+</ol>
+</blockquote>
+<p>如果o是竖式或倒立式，则返回true的便利函数;否则返回false。</p>
+<blockquote>
+<ol start="13">
+<li>logicalDotsPerInch : const qreal<blockquote>
+<p>qreal logicalDotsPerInch() const<br>信号：<br>void logicalDotsPerInchChanged(qreal dpi)</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<p>此属性保存每英寸逻辑点或像素的数量。<br>此值可用于将字体点大小转换为像素大小。<br>这是一个方便的属性，就是logicalDotsPerInchX和logicalDotsPerInchY属性的平均值。</p>
+<blockquote>
+<ol start="14">
+<li>logicalDotsPerInchX : const qreal<blockquote>
+<p>qreal logicalDotsPerInchX() const<br>信号：<br>void logicalDotsPerInchChanged(qreal dpi)</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<p>此属性保存水平方向上每英寸逻辑点或像素的数量。<br>此值用于将字体点大小转换为像素大小。</p>
+<blockquote>
+<ol start="15">
+<li>logicalDotsPerInchY : const qreal<blockquote>
+<p>qreal logicalDotsPerInchY() const<br>信号：<br>void logicalDotsPerInchChanged(qreal dpi)</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<p>此属性保存垂直方向上每英寸逻辑点或像素的数量。<br>此值用于将字体点大小转换为像素大小。</p>
+<blockquote>
+<ol start="16">
+<li>QRect QScreen::mapBetween(Qt::ScreenOrientation a, Qt::ScreenOrientation b, const QRect &amp;rect) const</li>
+</ol>
+</blockquote>
+<p>在两个屏幕朝向之间绘制矩形。</p>
+<blockquote>
+<ol start="17">
+<li>name : const QString<blockquote>
+<p>QString name() cons</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<p>此属性包含表示屏幕的用户外观字符串。<br>例如，在X11上，它们对应于XRandr屏幕名称，通常是“VGA1”、“HDMI1”等。</p>
+<blockquote>
+<ol start="18">
+<li>nativeOrientation : const Qt::ScreenOrientation<blockquote>
+<p>Qt::ScreenOrientation nativeOrientation() const</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<p>此属性保存本机屏幕定向。<br>屏幕的本机方向是设备的logo标签以正确的方式出现的方向，或者Qt: PrimaryOrientation(如果平台不支持这个功能的话)。本机方向是硬件的属性，不会改变。</p>
+<blockquote>
+<ol start="19">
+<li>orientation : const Qt::ScreenOrientation<blockquote>
+<p>Qt::ScreenOrientation orientation() const<br>信号：<br>void orientationChanged(Qt::ScreenOrientation orientation)</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<p>此属性保存屏幕方向。<br>屏幕方向表示显示的物理方向。例如，移动设备的屏幕方向会根据手持方式而改变。对方向的更改可能会也可能不会触发对屏幕主方向的更改。<br>对该属性的更改将通过orientationUpdateMask()进行过滤，因此为了接收方向更新，应用程序必须首先调用setOrientationUpdateMask()，并使用希望接收的方向的掩码。</p>
+<blockquote>
+<ol start="20">
+<li>Qt::ScreenOrientations QScreen::orientationUpdateMask() const</li>
+</ol>
+</blockquote>
+<p>返回当前设置的方向更新掩码。</p>
+<blockquote>
+<ol start="21">
+<li>physicalDotsPerInch : const qreal<blockquote>
+<p>qreal physicalDotsPerInch() const<br>信号：<br>void physicalDotsPerInchChanged(qreal dpi)</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<p>此属性保存每英寸的物理点或像素个数。<br>这个值表示屏幕显示的像素密度。根据底层系统提供的信息，价值可能不是完全准确的。<br>这是一种便利性质它只是物理和物理的平均性质。</p>
+<blockquote>
+<ol start="22">
+<li>physicalDotsPerInchX : const qreal<blockquote>
+<p>qreal physicalDotsPerInchX() const<br>信号：<br>void physicalDotsPerInchChanged(qreal dpi)</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<p>这个属性包含水平方向上每英寸的物理点或像素的数量。<br>这个值表示屏幕显示的实际水平像素密度。根据底层系统提供的信息，价值可能不是完全准确的。</p>
+<blockquote>
+<ol start="23">
+<li>physicalDotsPerInchY : const qreal<blockquote>
+<p>qreal physicalDotsPerInchY() const<br>信号：<br>void physicalDotsPerInchChanged(qreal dpi)</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<p>这个属性包含垂直方向上每英寸的物理点或像素的数量。<br>这个值表示屏幕显示的实际水平像素密度。根据底层系统提供的信息，价值可能不是完全准确的。</p>
+<blockquote>
+<ol start="24">
+<li>physicalSize : const QSizeF<blockquote>
+<p>QSizeF physicalSize() const<br>信号：<br>void physicalSizeChanged(const QSizeF &amp;size)</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<p>此属性保存屏幕的物理大小(以毫米为单位)。<br>物理大小表示屏幕显示的实际物理尺寸。<br>根据底层系统提供的信息，价值可能不是完全准确的。</p>
+<blockquote>
+<ol start="25">
+<li>primaryOrientation : const Qt::ScreenOrientation<blockquote>
+<p>Qt::ScreenOrientation primaryOrientation() const<br>信号：<br>void primaryOrientationChanged(Qt::ScreenOrientation orientation)</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<p>此属性保留主屏幕方向。<br>如果屏幕几何图形的宽度大于或等于它的高度，则主屏幕方向为Qt::LandscapeOrientation方向，否则则为 Qt::PortraitOrientation。当屏幕方向改变时(例如，当显示被旋转时)，这个属性可能会改变。但是，这种行为是与平台相关的，通常可以在应用程序清单文件中指定。</p>
+<blockquote>
+<ol start="26">
+<li>refreshRate : const qreal<blockquote>
+<p>qreal refreshRate() const<br>信号：<br>void refreshRateChanged(qreal refreshRate)</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<p>此属性保存Hz中屏幕的大致垂直刷新速度。</p>
+<blockquote>
+<ol start="27">
+<li>void QScreen::setOrientationUpdateMask(Qt::ScreenOrientations mask)</li>
+</ol>
+</blockquote>
+<p>设置应用程序感兴趣的接收与此屏幕相关的更新的方向。</p>
+<blockquote>
+<ol start="28">
+<li>size : const QSize<blockquote>
+<p>QSize size() const<br>信号：<br>void geometryChanged(const QRect &amp;geometry)</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<p>此属性保存屏幕的像素分辨率。</p>
+<blockquote>
+<ol start="29">
+<li>QTransform QScreen::transformBetween(Qt::ScreenOrientation a, Qt::ScreenOrientation b, const QRect &amp;target) const</li>
+</ol>
+</blockquote>
+<p>方便函数，用于计算从定位a定义的坐标系映射到定位b和目标维目标定义的坐标系的变换。</p>
+<blockquote>
+<ol start="29">
+<li>virtualGeometry : const QRect<blockquote>
+<p>QRect virtualGeometry() const<br>信号：<br>void virtualGeometryChanged(const QRect &amp;rect)</p>
+</blockquote>
+</li>
+</ol>
+</blockquote>
+<p>此属性保存该屏幕所属的虚拟桌面的像素几何。<br>返回与此屏幕对应的虚拟桌面的像素几何。<br>这是虚拟桌面的各个几何图形的联合。</p>
+<blockquote>
+<ol start="30">
+<li>QList<qscreen *=""> QScreen::virtualSiblings() const</qscreen></li>
+</ol>
+</blockquote>
+<p>获取屏幕的虚拟桌面。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Qt/">Qt</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Qt/">Qt</a><a href="/tags/屏幕截图/">屏幕截图</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2018/05/29/screenshort/" data-title="QT实现屏幕截图 | 铭心客的博客" data-tsina="2926855045" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2018/05/29/systemTrayIcon/" title="QT实现系统托盘">
+  <strong>上一篇：</strong><br/>
+  <span>
+  QT实现系统托盘</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2018/05/25/mduse/"  title="Markdown语法">
+ <strong>下一篇：</strong><br/> 
+ <span>Markdown语法
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2018/05/29/screenshort/" data-title="QT实现屏幕截图" data-url="http://yoursite.com/2018/05/29/screenshort/"></div>
+</section>
+
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#功能实现"><span class="toc-number">1.</span> <span class="toc-text">功能实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#QGuiApplication类"><span class="toc-number">2.</span> <span class="toc-text">QGuiApplication类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#公有函数"><span class="toc-number">2.1.</span> <span class="toc-text">公有函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#静态公有函数"><span class="toc-number">2.2.</span> <span class="toc-text">静态公有函数</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#QScreen类"><span class="toc-number">2.2.1.</span> <span class="toc-text">QScreen类</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Markdown/" title="Markdown">Markdown<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/QT/" title="QT">QT<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Qt/" title="Qt">Qt<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Qt/" title="Qt">Qt<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Markdown/" title="Markdown">Markdown<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/屏幕截图/" title="屏幕截图">屏幕截图<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/QPushButton/" title="QPushButton">QPushButton<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/图标/" title="图标">图标<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/QT/" title="QT">QT<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/系统托盘/" title="系统托盘">系统托盘<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://extrelin.github.io" target="_blank" title="Extrelin&#39;s Blog">Extrelin&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="https://blog.csdn.net/liang19890820" target="_blank" title="一去、二三里">一去、二三里</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=2926855045&verifier=a8864f2b&colors=2ca6cb,ffffff,666666,0082cb,ecfbfd&dpc=1&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Mingxinke. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2926855045" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/mingxinke" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/mingxinke" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:mingxinke@hotmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2018 
+		
+		<a href="/about" target="_blank" title="铭心客">铭心客</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"mingxinke"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+<script type="text/javascript">
+
+var disqus_shortname = 'mingxinke';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
